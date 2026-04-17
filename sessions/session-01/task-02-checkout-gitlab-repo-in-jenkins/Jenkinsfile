@@ -2,9 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Test') {
+        stage('Checkout hello-demo') {
             steps {
-                echo 'Jenkins pipeline is working'
+                git branch: 'main',
+                    credentialsId: 'github-upgradeskills-https',
+                    url: 'https://github.com/Quashed/hello-demo.git'
             }
         }
     }
