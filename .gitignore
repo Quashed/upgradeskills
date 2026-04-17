@@ -10,3 +10,5 @@ out/
 
 # Logs
 *.log
+
+sessions/session-01/task-02-checkout-gitlab-repo-in-jenkins/hello-demo/
