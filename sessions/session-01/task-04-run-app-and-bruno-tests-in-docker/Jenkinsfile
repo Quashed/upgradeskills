@@ -9,6 +9,7 @@ pipeline {
                     credentialsId: 'github-upgradeskills-https',
                     url: 'https://github.com/Quashed/hello-demo.git'
                 )
+            }
         }
 
         stage('Build') {
@@ -19,7 +20,7 @@ pipeline {
 
         stage('Start App') {
             steps {
-                sh 'nohup ./mvnw spring-boot:run &'
+                sh './mvnw spring-boot:run &'
             }
         }
 
