@@ -1,6 +1,10 @@
-# Task 03 — Build inside Docker
+# Task 03: Build inside Docker
 
 ## Description
-Run clean test inside the Docker-based Jenkins pipeline.
+Run clean test within the Docker-based Jenkins pipeline.
 ## Expected Outcome
-Build and tests pass without using the local machine environment.
+Build and tests pass without relying on local environment.
+
+## Approach
+- Executed build and tests using Maven wrapper within Jenkins pipeline.
+- Verified successful build and tests passing.
