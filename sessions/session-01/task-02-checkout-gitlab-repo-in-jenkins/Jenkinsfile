@@ -2,11 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout hello-demo') {
+        stage('Checkout') {
             steps {
-                git branch: 'main',
-                    credentialsId: 'github-upgradeskills-https',
+                git(
+                    branch: 'main',
+                    credentialsId: 'github-credentials',
                     url: 'https://github.com/Quashed/hello-demo.git'
+                )
             }
         }
     }
