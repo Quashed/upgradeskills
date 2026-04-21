@@ -10,7 +10,7 @@ pipeline {
             steps {
                 git(
                     branch: 'main',
-                    credentialsId: 'github-upgradeskills-https',
+                    credentialsId: 'github-credentials',
                     url: 'https://github.com/Quashed/hello-demo.git'
                 )
             }
