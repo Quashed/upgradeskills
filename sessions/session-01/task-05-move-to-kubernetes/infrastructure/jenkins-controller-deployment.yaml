@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-controller
+  labels:
+    app: jenkins-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-controller
+  template:
+    metadata:
+      labels:
+        app: jenkins-controller
+    spec:
+      serviceAccountName: jenkins-admin
+      containers:
+        - name: jenkins
+          image: jenkins/jenkins:lts
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+      volumes:
+        - name: jenkins-home
+          hostPath:
+            path: /run/desktop/mnt/host/c/Users/Developer/Desktop/jenkins-home
+            type: DirectoryOrCreate

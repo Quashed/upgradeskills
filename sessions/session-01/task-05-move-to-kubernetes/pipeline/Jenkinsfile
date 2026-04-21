@@ -1,0 +1,65 @@
+pipeline {
+    agent {
+        kubernetes {
+            yaml '''
+            apiVersion: v1
+            kind: Pod
+            spec:
+              containers:
+                - name: jnlp
+                  image: jenkins/inbound-agent:alpine
+                - name: maven
+                  image: maven:3.9.6-eclipse-temurin-21-alpine
+                  command:
+                    - sleep
+                  args:
+                    - infinity
+                - name: node
+                  image: node:20-alpine
+                  command:
+                    - sleep
+                  args:
+                    - infinity
+            '''
+        }
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git(
+                    branch: 'main',
+                    credentialsId: 'github-upgradeskills-https',
+                    url: 'https://github.com/Quashed/hello-demo.git'
+                )
+            }
+        }
+
+        stage('Build') {
+            steps {
+                container('maven') {
+                    sh 'chmod +x mvnw && ./mvnw clean test'
+                }
+            }
+        }
+
+        stage('Start App') {
+            steps {
+                container('maven') {
+                    sh './mvnw spring-boot:run &'
+                }
+            }
+        }
+
+        stage('Run Bruno') {
+            steps {
+                sleep 15
+                container('node') {
+                    dir('bruno') {
+                        sh 'npx @usebruno/cli run .'
+                    }
+                }
+            }
+        }
+    }
+}
